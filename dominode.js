@@ -20,6 +20,16 @@ Dominode.prototype.write = function (data) {
   var text = range.createContextualFragment(compiled)
   this.selector.appendChild(text)
   this.emit('data', text)
+  return !!!this._paused
+}
+
+Dominode.prototpe.pause = function () {
+  this._paused = true
+}
+
+Dominode.prototype.resume = function () {
+  this._paused = false
+  this.emit('drain')
 }
 
 Dominode.prototype.end = function () { this.emit('end') }
